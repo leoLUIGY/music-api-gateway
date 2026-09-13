@@ -27,7 +27,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync($"http://localhost:5002/preference/{id}");
+            var response = await client.GetAsync($"http://localhost:5001/preference/{id}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -48,7 +48,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync("http://localhost:5002/preferences");
+            var response = await client.GetAsync("http://localhost:5001/preferences");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -72,7 +72,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PostAsJsonAsync("http://localhost:5002/preference", preference);
+            var response = await client.PostAsJsonAsync("http://localhost:5001/preference", preference);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -96,7 +96,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PutAsJsonAsync($"http://localhost:5002/preference", preference);
+            var response = await client.PutAsJsonAsync($"http://localhost:5001/preference", preference);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -120,7 +120,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.DeleteAsync($"http://localhost:5002/preference/{id}");
+            var response = await client.DeleteAsync($"http://localhost:5001/preference/{id}");
 
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {

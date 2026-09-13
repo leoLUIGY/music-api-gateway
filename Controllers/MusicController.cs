@@ -27,7 +27,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync($"http://localhost:5001/musica/{id}");
+            var response = await client.GetAsync($"http://localhost:5000/musica/{id}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -48,7 +48,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync("http://localhost:5001/musicas");
+            var response = await client.GetAsync("http://localhost:5000/musicas");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -72,7 +72,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PostAsJsonAsync("http://localhost:5001/musica",music);
+            var response = await client.PostAsJsonAsync("http://localhost:5000/musica",music);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -96,7 +96,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PutAsJsonAsync($"http://localhost:5001/musica", music);
+            var response = await client.PutAsJsonAsync($"http://localhost:5000/musica", music);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -120,7 +120,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.DeleteAsync($"http://localhost:5001/musica/{id}");
+            var response = await client.DeleteAsync($"http://localhost:5000/musica/{id}");
 
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
