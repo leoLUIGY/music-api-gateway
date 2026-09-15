@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using music_api_gateway.DTOs.Music;
 using music_api_gateway.DTOs.Preference;
 
@@ -6,6 +7,7 @@ namespace music_api_gateway.Controllers
 {
     [ApiController]
     [Route("api/preference")]
+    [Authorize]
     public class MusicPreferenceController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

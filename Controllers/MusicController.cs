@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using music_api_gateway.DTOs.Music;
+using Microsoft.AspNetCore.Authorization;
 
 namespace music_api_gateway.Controllers
 {
     [ApiController]
     [Route("api/music")]
+    [Authorize]
     public class MusicController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
