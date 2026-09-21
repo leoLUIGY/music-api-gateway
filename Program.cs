@@ -1,5 +1,9 @@
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi;
+
+Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,8 +34,13 @@ builder.Services.AddHttpClient();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
-        options.Audience = builder.Configuration["Auth0:Audience"];
+        options.Authority =
+            $"https://{builder.Configuration["Auth0:Domain"]}/";
+
+        options.Audience =
+            builder.Configuration["Auth0:Audience"];
+
+        options.MapInboundClaims = false;
     });
 
 builder.Services.AddAuthorization();
