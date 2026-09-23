@@ -29,7 +29,7 @@ namespace music_api_gateway.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync($"http://localhost:5000/musica/{id}");
+            var response = await client.GetAsync($"http://localhost:5000/musica?id={id}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -115,14 +115,14 @@ namespace music_api_gateway.Controllers
         /// </summary>
         /// <param name="id">Id da musica</param>
         /// <returns></returns>
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMusic(int id)
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.DeleteAsync($"http://localhost:5000/musica/{id}");
+            var response = await client.DeleteAsync($"http://localhost:5000/musica?id={id}");
 
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
