@@ -11,10 +11,12 @@ namespace music_api_gateway.Controllers
     public class MusicController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public MusicController(IHttpClientFactory httpClientFactory)
+        public MusicController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -27,9 +29,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMusic(int id)
         {
+            var baseUrl = _configuration["Services:CatalogAPI"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync($"http://localhost:5000/musica?id={id}");
+            var response = await client.GetAsync($"{baseUrl}/musica?id={id}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -48,9 +51,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMusics()
         {
+            var baseUrl = _configuration["Services:CatalogAPI"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync("http://localhost:5000/musicas");
+            var response = await client.GetAsync($"{baseUrl}/musicas");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -72,9 +76,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateMusic([FromBody] CreateMusicDto music)
         {
+            var baseUrl = _configuration["Services:CatalogAPI"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PostAsJsonAsync("http://localhost:5000/musica",music);
+            var response = await client.PostAsJsonAsync($"{baseUrl}/musica",music);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -96,9 +101,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateMusic([FromBody] UpdateMusicDto music)
         {
+            var baseUrl = _configuration["Services:CatalogAPI"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PutAsJsonAsync($"http://localhost:5000/musica", music);
+            var response = await client.PutAsJsonAsync($"{baseUrl}/musica", music);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -120,9 +126,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMusic(int id)
         {
+            var baseUrl = _configuration["Services:CatalogAPI"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.DeleteAsync($"http://localhost:5000/musica?id={id}");
+            var response = await client.DeleteAsync($"{baseUrl}/musica?id={id}");
 
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {

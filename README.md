@@ -2,6 +2,12 @@
 
 API Gateway desenvolvida em **C# / ASP.NET Core 10**, responsável por centralizar as requisições da aplicação e integrar os serviços de catálogo e recomendação.
 
+## Arquitetura
+
+A aplicação utiliza uma arquitetura baseada em API Gateway, responsável pela autenticação dos usuários e pela comunicação com os demais serviços.
+
+![Arquitetura da aplicação](Docs/api_estrutura.png)
+
 ## Tecnologias
 
 * C# / .NET 10

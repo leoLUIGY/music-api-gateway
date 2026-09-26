@@ -20,6 +20,9 @@ WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Development
 ENV ASPNETCORE_HTTP_PORTS=8080
 
+ENV Services__RecommendationApi=http://host.docker.internal:5001
+ENV Services__CatalogAPI=http://host.docker.internal:5000
+
 COPY --from=build /app/publish .
 
 COPY .env .env

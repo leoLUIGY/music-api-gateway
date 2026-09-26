@@ -11,10 +11,12 @@ namespace music_api_gateway.Controllers
     public class MusicPreferenceController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public MusicPreferenceController(IHttpClientFactory httpClientFactory)
+        public MusicPreferenceController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -27,9 +29,11 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPreference(int id)
         {
+            var baseUrl = _configuration["Services:RecommendationApi"];
+
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync($"http://localhost:5001/preference?id={id}");
+            var response = await client.GetAsync($"{baseUrl}/preference?id={id}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -48,9 +52,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPreferences()
         {
+            var baseUrl = _configuration["Services:RecommendationApi"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync("http://localhost:5001/preferences");
+            var response = await client.GetAsync($"{baseUrl}/preferences");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -72,9 +77,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreatePreference([FromBody] CreatePreferenceDto preference)
         {
+            var baseUrl = _configuration["Services:RecommendationApi"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PostAsJsonAsync("http://localhost:5001/preference", preference);
+            var response = await client.PostAsJsonAsync($"{baseUrl}/preference", preference);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -96,9 +102,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdatePreference([FromBody] UpdatePreferenceDto preference)
         {
+            var baseUrl = _configuration["Services:RecommendationApi"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.PutAsJsonAsync($"http://localhost:5001/preference", preference);
+            var response = await client.PutAsJsonAsync($"{baseUrl}/preference", preference);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -120,9 +127,10 @@ namespace music_api_gateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePreference(int id)
         {
+            var baseUrl = _configuration["Services:RecommendationApi"];
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.DeleteAsync($"http://localhost:5001/preference?id={id}");
+            var response = await client.DeleteAsync($"{baseUrl}/preference?id={id}");
 
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
