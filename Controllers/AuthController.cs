@@ -22,6 +22,11 @@ namespace music_api_gateway.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Registra um novo usuário.
+        /// </summary>
+        /// <param name="request">Dados necessários para o cadastro, contendo e-mail e senha.</param>
+        /// <returns>Retorna os dados do usuário criado.</returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
@@ -61,7 +66,11 @@ namespace music_api_gateway.Controllers
             return Ok(JsonSerializer.Deserialize<object>(content));
         }
 
-
+        /// <summary>
+        /// Realiza a autenticação de um usuário.
+        /// </summary>
+        /// <param name="request">Credenciais do usuário, contendo e-mail e senha.</param>
+        /// <returns>Retorna o token de acesso utilizado para autenticar as requisições.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
@@ -94,7 +103,10 @@ namespace music_api_gateway.Controllers
             return Ok(JsonSerializer.Deserialize<object>(content));
         }
 
-
+        /// <summary>
+        /// Obtém os dados do usuário autenticado.
+        /// </summary>
+        /// <returns>Retorna os dados do usuário atualmente autenticado.</returns>
         [Authorize]
         [HttpGet("user")]
         public async Task<IActionResult> GetUser()
@@ -127,7 +139,10 @@ namespace music_api_gateway.Controllers
             return Ok(JsonSerializer.Deserialize<object>(content));
         }
 
-
+        /// <summary>
+        /// Remove o usuário autenticado.
+        /// </summary>
+        /// <returns>Retorna uma resposta sem conteúdo após a remoção do usuário.</returns>
         [Authorize]
         [HttpDelete("user")]
         public async Task<IActionResult> DeleteUser()
