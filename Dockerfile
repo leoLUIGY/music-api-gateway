@@ -1,4 +1,3 @@
-# Etapa 1 - Build
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 
 WORKDIR /src
@@ -14,15 +13,16 @@ RUN dotnet publish "music-api-gateway.csproj" \
     -o /app/publish \
     --no-restore
 
-
-# Etapa 2 - Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 WORKDIR /app
 
 ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_HTTP_PORTS=8080
 
 COPY --from=build /app/publish .
+
+COPY .env .env
 
 EXPOSE 8080
 
